@@ -1,0 +1,75 @@
+#!/opt/local/bin/gnuplot
+
+set terminal pdf size 48cm,12cm noenhanced
+set output 'new_plot.pdf'
+
+set style line 2 lc rgb 'black' lt 1 lw 1
+set style data histogram
+set style histogram cluster gap 1
+set style fill pattern border -1
+set boxwidth 0.9
+
+set xrange [-0.65:10.5]
+
+set tmargin at screen 0.90
+set bmargin 7.5
+set lmargin 21
+set ylabel offset -12,0
+set xlabel offset 0,-1.7
+
+set xtics nomirror
+set ytics nomirror
+set grid ytics
+
+set xtics font ", 35"
+set ytics font ", 35"
+
+set ylabel font ", 45"
+set xlabel font ", 45"
+
+set ylabel "Reliability"
+set xlabel "Fault Number"
+
+set format y "%.0f%%"
+set ytics  0,10,100 
+set yrange [0:105]
+
+unset key
+set multiplot layout 1,1
+
+plot "<(sed -n '2,12p' new_data.txt)" using 2:xtic(1) title "Random" ls 2 fillstyle pattern 3, \
+            '' using 3 title "PE" ls 2 fillstyle pattern 4, \
+            '' using 4 title "PP" ls 2 fillstyle pattern 5, \
+            '' using 5 title "PE+PP" ls 2 fillstyle pattern 2, \
+            '' using 6 title "PP+PE" ls 2 fillstyle pattern 1
+
+unset title
+unset xlabel
+unset ylabel
+unset border
+unset xtics
+unset ytics
+
+set key spacing 1.2
+set key samplen 5
+
+set key at screen 0.32,screen 1 vertical maxrows 1 font ",45"
+plot NaN title "Random" with boxes ls 2 fillstyle pattern 3
+
+set key at screen 0.43,screen 1 vertical maxrows 1 font ",45"
+plot NaN title "PE" with boxes ls 2 fillstyle pattern 4
+
+set key at screen 0.535,screen 1 vertical maxrows 1 font ",45"
+plot NaN title "PP" with boxes ls 2 fillstyle pattern 5
+
+set key at screen 0.672,screen 1 vertical maxrows 1 font ",45"
+plot NaN title "PE+PP" with boxes ls 2 fillstyle pattern 2
+
+set key at screen 0.81,screen 1 vertical maxrows 1 font ",45"
+plot NaN title "PP+PE" with boxes ls 2 fillstyle pattern 1
+
+unset multiplot
+
+
+
+

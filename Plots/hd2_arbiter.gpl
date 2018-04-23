@@ -1,0 +1,123 @@
+#!/opt/local/bin/gnuplot
+
+# set terminal pdf size 48cm,12cm noenhanced dashed
+set terminal pdf monochrome dashed size 48cm,12cm noenhanced
+set output 'hd2_arbiter.pdf'
+
+set style line 2 lc rgb 'black' lt 2 lw 1
+set style line 3 lc rgb 'black' lt 2 lw 2
+set style line 4 lc rgb 'black' lt 3 lw 2
+set style line 5 lc rgb 'black' lt 4 lw 2
+set style line 6 lc rgb 'black' lt 5 lw 2
+set style line 7 lc rgb 'black' lt 6 lw 4
+set style line 10 lc rgb 'black' lt 1 lw 1
+
+
+set xrange [0:65]
+set xtics  0,5,65 
+
+set xtics nomirror
+set ytics nomirror
+# set grid ytics
+
+set xtics font ", 35"
+set ytics font ", 35"
+
+set ylabel font ", 45"
+set xlabel font ", 45"
+
+set key font ",20"
+
+set tmargin at screen 0.89
+set bmargin 7.5
+set lmargin 17
+set ylabel offset -8,0
+set xlabel offset 0,-2
+
+set pointsize 1
+
+set ytics  0,10,100 
+set yrange [0:100]
+
+
+set multiplot layout 1,2
+
+unset key
+set ylabel "Probability of same response"
+set xlabel "i-th challenge bit position"
+plot 'Probability' using 1:($8*100) with lines ls 7 title "HD=1 - analytical", \
+	'arbiter_prob_hd2_emp' every 2:2 using 1:($2*100) with points pt 3 title "|j-i|=1", \
+	'' every 2:2 using 1:($11*100) with points pt 4 title "|j-i|=10", \
+	'' every 2:2 using 1:($13*100) with points pt 5 title "|j-i|=20", \
+	'' every 2:2 using 1:($15*100) with points pt 6 title "|j-i|=30", \
+	'' every 2:2 using 1:($17*100) with points pt 7 title "|j-i|=40", \
+	'' every 2:2 using 1:($19*100) with points pt 8 title "|j-i|=50", \
+	'' every 2:2 using 1:($21*100) with points pt 9 title "|j-i|=60", \
+	'arbiter_prob_hd2_ana' using 1:($2*100) with line ls 2 , \
+	'' using 1:($11*100) with line ls 2 , \
+	'' using 1:($13*100) with line ls 2 , \
+	'' using 1:($15*100) with line ls 2 , \
+	'' using 1:($17*100) with line ls 2 , \
+	'' using 1:($19*100) with line ls 2 , \
+	'' using 1:($21*100) with line ls 2 
+
+
+set ylabel "Response entropy"
+set xlabel "Flipped challenge bit position"
+
+set yrange [0:1.05]
+set ytics  0,1,1 
+unset grid
+set lmargin 15
+set rmargin 5
+set ylabel offset -4.5,0
+# set xlabel offset 0,-2
+
+# plot 'entropy' using 1:8 with line ls 2 title "Arbiter (analytical)", \
+# 	'' every 2:2 using 1:4 with points pt 2 title "Arbiter (empirical)", \
+
+
+	
+
+unset title
+unset xlabel
+unset ylabel
+unset border
+unset xtics
+unset ytics
+
+set key at screen 0.2,screen 1 vertical maxrows 1 font ",45"
+plot NaN title "HD = 1" with line ls 7
+
+set key at screen 0.3,screen 1 vertical maxrows 1 font ",45"
+set pointsize 2.5
+plot NaN title "|j-i|=1" with points pt 3
+
+set key at screen 0.4,screen 1 vertical maxrows 1 font ",45"
+set pointsize 2.5
+plot NaN title "|j-i|=10" with points pt 4
+
+set key at screen 0.5,screen 1 vertical maxrows 1 font ",45"
+set pointsize 2.5
+plot NaN title "|j-i|=20" with points pt 5
+
+set key at screen 0.6,screen 1 vertical maxrows 1 font ",45"
+set pointsize 2.5
+plot NaN title "|j-i|=30" with points pt 6
+
+set key at screen 0.7,screen 1 vertical maxrows 1 font ",45"
+set pointsize 2.5
+plot NaN title "|j-i|=40" with points pt 7
+
+set key at screen 0.8,screen 1 vertical maxrows 1 font ",45"
+set pointsize 2.5
+plot NaN title "|j-i|=50" with points pt 8
+
+set key at screen 0.9,screen 1 vertical maxrows 1 font ",45"
+set pointsize 2.5
+plot NaN title "|j-i|=60" with points pt 9
+
+
+
+unset multiplot
+
