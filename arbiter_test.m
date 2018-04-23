@@ -1,11 +1,11 @@
 stages = 64;
 number_of_pufs_under_test = 100;
 number_of_CRPs_per_puf = 500;
-sd0 = 100;
-sd1 = 100;
+sd0 = 1/100;
+sd1 = 1/100;
 
  count = zeros(1, stages);
- for puf_instance = 1:number_of_pufs_under_tes
+ for puf_instance = 1:number_of_pufs_under_test
      [w] = arbiter_create (stages, sd0, sd1);
      for j=1:number_of_CRPs_per_puf
          c = generate_challenge(stages);
