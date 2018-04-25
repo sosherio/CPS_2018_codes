@@ -1,7 +1,7 @@
 #!/opt/local/bin/gnuplot
 
 # set terminal pdf size 48cm,12cm noenhanced dashed
-set terminal pdf monochrome dashed size 48cm,12cm noenhanced
+set terminal pdf monochrome dashed size 24cm,12cm noenhanced
 set output 'hd_any_loop.pdf'
 
 set style line 2 lc rgb 'black' lt 1 lw 4
@@ -13,90 +13,74 @@ set style line 7 lc rgb 'black' lt 6 lw 4
 set style line 10 lc rgb 'black' lt 1 lw 2
 
 
-set xrange [0:65]
+set xrange [-.5:65.3]
 set xtics  0,5,65 
 
 set xtics nomirror
 set ytics nomirror
+set y2tics nomirror
+
 # set grid ytics
 
 set xtics font ", 35"
 set ytics font ", 35"
+set y2tics font ", 35"
 
-set ylabel font ", 45"
-set xlabel font ", 45"
+
+set ylabel font ", 38"
+set y2label font ", 38"
+set xlabel font ", 38"
 
 set key font ",30"
 
 set tmargin at screen 0.89
 set bmargin 7.5
 set lmargin 17
+set rmargin 19
+
 set ylabel offset -8,0
+set y2label offset 6,0
 set xlabel offset 0,-2
 
-set pointsize 1
+set pointsize 1.5
 
 set ytics  0,10,100 
-set yrange [0:100]
+set yrange [0:105]
+set y2range [0:1.05]
+set y2tics  0,.1,1 
 
+set key out top center horizontal
 
-set multiplot layout 1,2
-
-unset key
 set ylabel "Probability of same response"
 set xlabel "Hamming distance between pairs of challenges"
-plot 'hd_any_loop_raw' using 1:($3*100) with lines ls 10 title "Loop (analytical)", \
-	'' every 2:2 using 1:($2*100) with points pt 2 title "Loop (empirical)",\
-	'' using 1:($7*100) with lines ls 10 title "XOR-Loop (analytical, k=3)", \
-	'' every 2:2 using 1:($6*100) with points pt 4 title "XOR-Loop (empirical, k=3)",\
-	'' using 1:($11*100) with lines ls 10 title "XOR-Loop (analytical, k=5)", \
-	'' every 2:2 using 1:($10*100) with points pt 6 title "XOR-Loop (empirical, k=5)"
+set y2label "Response entropy"
 
-set ylabel "Response entropy"
-set xlabel "Hamming distance between pairs of challenges"
-
-set yrange [0:1.05]
-set ytics  0,1,1 
-unset grid
-set lmargin 15
-set rmargin 5
-set ylabel offset -4.5,0
-# set xlabel offset 0,-2
+plot 'hd_any_loop_raw' using 1:($3*100) with lines ls 3 title "Probability (analytical)", \
+	'' every 2:2 using 1:($2*100) with points pt 2 title "Probability (simulation)",\
+	'' using 1:($5*100) with lines ls 10 title "Entropy (analytical)", \
+	'' every 2:2 using 1:($4*100) with points pt 4 title "Entropy (simulation)", \
 
 
-plot'hd_any_loop_raw' using 1:5 with lines ls 10 title "Loop (analytical)", \
-	'' every 2:2 using 1:4 with points pt 2 title "Loop (empirical)", \
-	'' using 1:9 with lines ls 10 title "XOR-Loop (analytical, k=3)", \
-	'' every 2:2 using 1:8 with points pt 4 title "XOR-Loop (empirical, k=3)", \
-	'' using 1:13 with lines ls 10 title "XOR-Loop (analytical, k=5)", \
-	'' every 2:2 using 1:12 with points pt 6 title "XOR-Loop (empirical, k=5)"
+
+
+
+
+# set key at screen 0.40,1 screen 1 vertical maxrows 1 font ",33"
+# plot NaN title "Loop (analytical)" with line ls 10 
+
+# set key at screen 0.6,1 screen 1 vertical maxrows 1 font ",33"
+# set pointsize 2
+# plot NaN title "Loop (empirical)" with points pt 2
+
 
 unset title
 unset xlabel
 unset ylabel
+unset y2label
 unset border
 unset xtics
 unset ytics
 
 
-set key at screen 0.25,screen 1 vertical maxrows 1 font ",40"
-set pointsize 2
-plot NaN title "Loop (empirical)" with points pt 2
 
-set key at screen 0.5,screen 1 vertical maxrows 1 font ",40"
-set pointsize 2
-plot NaN title "XOR-Loop (empirical, k=3)" with points pt 4
-
-set key at screen 0.75,screen 1 vertical maxrows 1 font ",40"
-set pointsize 2
-plot NaN title "XOR-Loop (empirical, k=5)" with points pt 6
-
-set key at screen 0.9,screen 1 vertical maxrows 1 font ",40"
-plot NaN title "analytical" with line ls 10 
-
-
-
-
-
-unset multiplot
 
