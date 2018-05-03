@@ -1,0 +1,86 @@
+#!/opt/local/bin/gnuplot
+
+set terminal pdf size 48cm,12cm noenhanced
+set output 'predictability_old.pdf'
+
+set style line 2 lc rgb 'black' lt 1 lw 2
+
+
+set tmargin at screen 0.90
+set bmargin 7.5
+set lmargin 15
+set ylabel offset -5,0
+set xlabel offset 0,-1.7
+
+set xtics nomirror
+set ytics nomirror
+# set grid ytics
+
+set xtics font ", 25"
+set ytics font ", 25"
+
+set ylabel font ", 35"
+set xlabel font ", 35"
+
+set title font ", 30"
+
+set ylabel "Predictability"
+set xlabel "Relative HD"
+
+# set format y "%.0f%%"
+set ytics  0.6,.05,1 
+set yrange [.6:1.01]
+set xrange [-10:257+10]
+
+unset key
+set multiplot layout 1,4
+
+set style fill pattern 6 border
+
+set title "# of given challenges = 1"
+plot "<(sed -n '1,1p' predictability)" using 5:3:4:xtic(2) with boxes fill pattern 2 ls 2, \
+	 "<(sed -n '2,2p' predictability)" using 5:3:4:xtic(2) with boxes fill pattern 4 ls 2, \
+	 "<(sed -n '3,3p' predictability)" using 5:3:4:xtic(2) with boxes fill pattern 6 ls 2, \
+	 "<(sed -n '4,4p' predictability)" using 5:3:4:xtic(2) with boxes fill pattern 5 ls 2, \
+	 "<(sed -n '5,5p' predictability)" using 5:3:4:xtic(2) with boxes fill pattern 10 ls 2
+
+
+unset ylabel
+
+
+set title "# of given challenges = 2; HD(C1,C2) = 1"
+plot "<(sed -n '1,1p' predictability)" using 7:3:6:xtic(2) with boxes fill pattern 2 ls 2, \
+	 "<(sed -n '2,2p' predictability)" using 7:3:6:xtic(2) with boxes fill pattern 4 ls 2, \
+	 "<(sed -n '3,3p' predictability)" using 7:3:6:xtic(2) with boxes fill pattern 6 ls 2, \
+	 "<(sed -n '4,4p' predictability)" using 7:3:6:xtic(2) with boxes fill pattern 5 ls 2, \
+	 "<(sed -n '5,5p' predictability)" using 7:3:6:xtic(2) with boxes fill pattern 10 ls 2
+
+
+set title "# of given challenges = 2; HD(C1,C2) = 5"
+plot "<(sed -n '1,1p' predictability)" using 9:3:8:xtic(2) with boxes fill pattern 2 ls 2, \
+	 "<(sed -n '2,2p' predictability)" using 9:3:8:xtic(2) with boxes fill pattern 4 ls 2, \
+	 "<(sed -n '3,3p' predictability)" using 9:3:8:xtic(2) with boxes fill pattern 6 ls 2, \
+	 "<(sed -n '4,4p' predictability)" using 9:3:8:xtic(2) with boxes fill pattern 5 ls 2, \
+	 "<(sed -n '5,5p' predictability)" using 9:3:8:xtic(2) with boxes fill pattern 10 ls 2
+
+set title "# of given challenges = 5"
+plot "<(sed -n '1,1p' predictability)" using 11:3:10:xtic(2) with boxes fill pattern 2 ls 2, \
+	 "<(sed -n '2,2p' predictability)" using 11:3:10:xtic(2) with boxes fill pattern 4 ls 2, \
+	 "<(sed -n '3,3p' predictability)" using 11:3:10:xtic(2) with boxes fill pattern 6 ls 2, \
+	 "<(sed -n '4,4p' predictability)" using 11:3:10:xtic(2) with boxes fill pattern 5 ls 2, \
+	 "<(sed -n '5,5p' predictability)" using 11:3:10:xtic(2) with boxes fill pattern 10 ls 2
+
+
+# unset title
+# unset xlabel
+# unset ylabel
+# unset border
+# unset xtics
+# unset ytics
+
+
+unset multiplot
+
+
+
+

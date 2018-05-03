@@ -1,7 +1,7 @@
 #!/opt/local/bin/gnuplot
 
-# set terminal pdf size 48cm,12cm noenhanced dashed
-set terminal pdf monochrome dashed size 24cm,12cm noenhanced
+# set terminal pdf size 48cm,12cm enhanced dashed
+set terminal pdf monochrome dashed size 24cm,12cm enhanced
 set output 'hd_any_loop.pdf'
 
 set style line 2 lc rgb 'black' lt 1 lw 4
@@ -35,30 +35,30 @@ set key font ",30"
 
 set tmargin at screen 0.89
 set bmargin 7.5
-set lmargin 17
+set lmargin 21
 set rmargin 19
 
-set ylabel offset -8,0
+set ylabel offset -11,0
 set y2label offset 6,0
 set xlabel offset 0,-2
 
 set pointsize 1.5
 
-set ytics  0,10,100 
-set yrange [0:105]
+set ytics  0,.10,1 
+set yrange [0:1.05]
 set y2range [0:1.05]
 set y2tics  0,.1,1 
 
 set key out top center horizontal
 
-set ylabel "Probability of same response"
-set xlabel "Hamming distance between pairs of challenges"
+set ylabel sprintf("Probability of same response \n (R_{c} = R_{c'})")
+set xlabel "Hamming distance between pairs of challenges for Loop"
 set y2label "Response entropy"
 
-plot 'hd_any_loop_raw' using 1:($3*100) with lines ls 3 title "Probability (analytical)", \
-	'' every 2:2 using 1:($2*100) with points pt 2 title "Probability (simulation)",\
-	'' using 1:($5*100) with lines ls 10 title "Entropy (analytical)", \
-	'' every 2:2 using 1:($4*100) with points pt 4 title "Entropy (simulation)", \
+plot 'hd_any_loop_raw' using 1:3 with lines ls 3 title "Probability (analytical)", \
+	'' every 2:2 using 1:2 with points pt 2 title "Probability (simulation)",\
+	'' using 1:5 with lines ls 10 title "Entropy (analytical)", \
+	'' every 2:2 using 1:4 with points pt 4 title "Entropy (simulation)", \
 
 
 

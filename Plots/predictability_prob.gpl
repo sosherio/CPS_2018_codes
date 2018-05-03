@@ -1,7 +1,7 @@
 #!/opt/local/bin/gnuplot
 
-set terminal pdf size 48cm,12cm enhanced
-set output 'predictability.pdf'
+set terminal pdf size 48cm,12cm noenhanced
+set output 'predictability_prob.pdf'
 
 set style line 2 lc rgb 'black' lt 1 lw 1
 set style data histogram
@@ -9,10 +9,10 @@ set style histogram cluster gap 1
 set style fill pattern border -1
 set boxwidth 0.9
 
-set xrange [-.5:5]
+set xrange [-.5:10.5]
 
-set tmargin at screen 0.97
-set bmargin 18
+set tmargin at screen 0.90
+set bmargin 15
 set lmargin 21
 set rmargin 8
 set ylabel offset -8,0
@@ -28,32 +28,32 @@ set ytics font ", 30"
 set ylabel font ", 35"
 set xlabel font ", 35"
 
-set ylabel "Frequency (# CRPs)"
+set ylabel "Frequency (# challenges)"
 
 
-# set format x "%f%"
-set ytics  0,100,670 
-set yrange [0:680]
+# set format y "%.0f%%"
+set ytics  0,10,70 
+set yrange [0:75]
 
 set title font ", 33"
 unset key
 set multiplot layout 1,4
 
-# set title "given 1 CRP"
-set xlabel sprintf("Prediction accuracy \n given 1 CRP \n (a)")
-plot 'predictability' using 2:xtic(1) ls 2 fillstyle pattern 2
+set title "# given challenges = 1"
+set xlabel sprintf("Probability of same response \n (a)")
+plot 'predictability_prob' using 2:xtic(1) ls 2 fillstyle pattern 2
             
-# set title "2 given CRPs; HD(C1,C2)=1" 
-set xlabel sprintf("Prediction accuracy \n given 2 CRPs of {/Symbol a}=2 \n (b)")
-plot 'predictability' using 3:xtic(1) ls 2 fillstyle pattern 2
+set title "# given challenges = 2; HD(C1,C2)=1" 
+set xlabel sprintf("Probability of same response \n (b)")
+plot 'predictability_prob' using 3:xtic(1) ls 2 fillstyle pattern 2
            
-# set title "2 given CRPs; HD(C1,C2)=5" 
-set xlabel sprintf("Prediction accuracy \n given 2 CRPs of {/Symbol a}=5 \n (c)")
-plot 'predictability' using 4:xtic(1) ls 2 fillstyle pattern 2
+set title "# given challenges = 2; HD(C1,C2)=4" 
+set xlabel sprintf("Probability of same response \n (c)")
+plot 'predictability_prob' using 4:xtic(1) ls 2 fillstyle pattern 2
             
-# set title "5 given CRPs; chosen randomly" 
-set xlabel sprintf("Prediction accuracy \n given 5 random CRPs\n (d)")
-plot 'predictability' using 5:xtic(1) ls 2 fillstyle pattern 2           
+set title "# given challenges = 5" 
+set xlabel sprintf("Probability of same response \n (d)")
+plot 'predictability_prob' using 5:xtic(1) ls 2 fillstyle pattern 2           
 
 
 unset title
